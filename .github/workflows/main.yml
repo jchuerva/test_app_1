@@ -3,11 +3,7 @@
 name: unmaintained-modified-files
 
 # Controls when the action will run. 
-on:
-  push:
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+on: [ push ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -21,15 +17,15 @@ jobs:
       # Get the branch name
       # Using the API, find files on the PR
       # for each file, check if each file is part of the XXX.txt file
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-      - name: Extract Branch name
-        run: echo running on branch ${GITHUB_REF##*/}
+      - name: Extract Pull request name
+        run: echo running on branch $${{ github.event.pull_request }}
       - name: list files
-        run: |
-          URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files"
-          FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER: github
+        run: |          
+          FILES=$(curl -s -H "Authorization: token ${{github.token}}" \
+                  -H "Accept: application/vnd.github.v3+json" \
+                  https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files")
           echo $FILES
         
