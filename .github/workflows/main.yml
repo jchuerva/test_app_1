@@ -21,9 +21,15 @@ jobs:
       # Get the branch name
       # Using the API, find files on the PR
       # for each file, check if each file is part of the XXX.txt file
-      - name: Extract branch name 
+      - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-      - name: Branch name
+      - name: Extract Branch name
         run: echo running on branch ${GITHUB_REF##*/}
+      - name: list files
+        run: |
+          URL="https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files"
+          FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
+          echo $FILES
+        
