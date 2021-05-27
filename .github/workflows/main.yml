@@ -27,6 +27,7 @@ jobs:
           echo files: $FILES
       
       # Check if files are presented in docs/serviceowners_no_matches.txt
+      - uses: actions/checkout@v2
       - name: Check service of files
         run: cat docs/serviceowners_no_matches.txt
         
