@@ -5,6 +5,7 @@ name: Check serviceowners for modified files in the PR
 on: 
   # Triggers the workflow on pull request events
   pull_request:
+    
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,32 +22,28 @@ jobs:
         run: |
           API_URL="https://api.github.com/repos/jchuerva/test_app_1/pulls/${{ github.event.pull_request.number }}/files"
           FILES=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $API_URL | jq -r '.[] | .filename')
-          echo $FILES
-          echo "FILES=$(echo $FILES)" >> $GITHUB_ENV
-
-      - name: Check if files have a serviceowner
-        run: |
           for file in $FILES
           do
-            if ! grep -Fxq "$file" docs/serviceowners_no_matches.txt
+            if grep -Fxq "$file" docs/serviceowners_no_matches.txt
             then
               UNOWNED_FILES+=($file)
             fi
           done
-          echo $UNOWNED_FILES
-          echo "UNOWNED_FILES=$(echo $UNOWNED_FILES)" >> $GITHUB_ENV
-
-      - name: Result
-        run: |
           if [ $UNOWNED_FILES ]
           then
+            FAILED_MESSAGE="This PR touch this unowned file.\n
+            To fix it, you need to find a maintainer for them and update SERVICEOWNERS.\n
+            If you assign them to other team, please let them know it.\n
+            Learn more in:\n
+            https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners/
+            "
             echo "This PR touch some unowned files"
             for file in $UNOWNED_FILES
             do
               echo "   - $file"
             done
             echo "To fix it, you need to find a maintainer for them and update SERVICEOWNERS."
-            echo "If you assign them to other team, please let them know it." >&2
+            echo "If you assign them to other team, please let them know it."
             echo "Learn more in:"
             echo "https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners/"
             echo ""
@@ -54,4 +51,3 @@ jobs:
           else
             echo "Looks good! All files has an owner!"
           fi
-          
