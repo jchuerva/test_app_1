@@ -33,6 +33,6 @@ jobs:
       - name: Get files in a direct API call
         run: |
           URL="https://api.github.com/repos/test_app_1/pulls/${{ github.event.pull_request.number }}/files"
-          FILES=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $URL | jq -r '.[] | .filename')
+          FILES=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $URL)
           echo $FILES
         
