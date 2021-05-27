@@ -19,4 +19,4 @@ jobs:
 
       - name: Get files from the PR
         id: get_files
-        run: ./main.sh
+        run: .github/workflows/main.sh
