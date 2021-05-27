@@ -28,5 +28,5 @@ jobs:
           FILES=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $API_URL | jq -r '.[] | .filename')
           echo '::set-output name=SELECTED_COLOR::green'
 
-      - run: "echo ${{steps.get_files.output.SELECTED_COLOR}}"
+      - run: echo "${{steps.get_files.output.SELECTED_COLOR}}"
 
