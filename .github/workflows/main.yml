@@ -23,7 +23,7 @@ jobs:
       # Get files in pull request
       - name: Get files from the PR
         id: get_files
-        run: echo '::set-output name=SELECTED_COLOR::green'
+        run: echo "::set-output name=SELECTED_COLOR::green"
 
       - run: echo "${{steps.get_files.output.SELECTED_COLOR}}"
 
