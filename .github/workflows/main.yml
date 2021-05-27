@@ -32,10 +32,10 @@ jobs:
           if [ $UNOWNED_FILES ]
           then
             FAILED_MESSAGE=" \
-            This PR touch this unowned file. \
-            To fix it, you need to find a maintainer for them and update SERVICEOWNERS. \
-            If you assign them to other team, please let them know it. \
-            Learn more in: \
+            This PR touch this unowned file.\n \
+            To fix it, you need to find a maintainer for them and update SERVICEOWNERS.\n \
+            If you assign them to other team, please let them know it.\n \
+            Learn more in:\n \
             https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners/ \
             "
             echo "This PR touch some unowned files"
