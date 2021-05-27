@@ -19,6 +19,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/checkout@v2
       # Get files in pull request
       - name: Get files in a direct API call
         run: |
@@ -27,7 +28,21 @@ jobs:
           echo files: $FILES
       
       # Check if files are presented in docs/serviceowners_no_matches.txt
-      - uses: actions/checkout@v2
-      - name: Check service of files
-        run: cat docs/serviceowners_no_matches.txt
+      - name: List all no matches files
+        run: |
+        cat docs/serviceowners_no_matches.txt
+        echo "-------"
+        echo "-------"
+
+      - name: Check if file has owner or not
+        run: 
+        for file in $FILES; 
+        do 
+          if grep -Fxq "$file" docs/serviceowners_no_matches.txt
+          then
+              echo "ola k ase con service"
+          else
+              echo "ola k ase sin service"
+          fi
+        done
         
