@@ -1,7 +1,7 @@
 #!/bin/bash
 
-API_URL="https://api.github.com/repos/jchuerva/test_app_1/pulls/${{ github.event.pull_request.number }}/files"
-FILES=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $API_URL | jq -r '.[] | .filename')
+API_URL="https://api.github.com/repos/jchuerva/test_app_1/pulls/${PR_NUMBER}/files"
+FILES=$(curl -s -X GET -H "Authorization: Bearer ${GITHUB_TOKEN}" $API_URL | jq -r '.[] | .filename')
 for file in $FILES
 do
   if grep -Fxq "$file" docs/serviceowners_no_matches.txt
