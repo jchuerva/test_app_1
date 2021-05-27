@@ -29,13 +29,13 @@ jobs:
           echo $FILES
           TEST=("${FILES[@]}")
           echo $TEST
-          echo "::set-output name=files::$TEST"
+          echo "::set-env name=files::$TEST"
 
-      - run: echo "${{steps.get_files.outputs.files}}"
+      - run: echo "${{steps.get_files.envs.files}}"
 
       - name: Loop in FILES
         run: |
-          for file in ${{steps.get_files.outputs.files}}
+          for file in ${{steps.get_files.envs.files}}
           do
             echo "This is the file: $file"
           done
