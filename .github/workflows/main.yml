@@ -19,11 +19,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
-      # Get files in pull request
-      - name: Get files from the PR
-        id: get_files
-        run: echo "::set-output name=SELECTED_COLOR::green"
-
-      - run: echo "${{steps.get_files.output.SELECTED_COLOR}}"
+     - name: Set selected color
+        run: echo '::set-output name=SELECTED_COLOR::green'
+        id: random-color-generator
+    - name: Get color
+      run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
 
