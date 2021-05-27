@@ -36,7 +36,7 @@ jobs:
           for file in $FILES
           do
             echo "This is the file: $file"
-            if grep -Fxq "$file" serviceowners_no_matches.txt
+            if grep -Fxq "$file" docs/serviceowners_no_matches.txt
             then
                 echo "ola k ase con service"
             else
