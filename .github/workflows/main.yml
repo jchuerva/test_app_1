@@ -29,8 +29,6 @@ jobs:
           echo $FILES
           echo "FILES=$(echo $FILES)" >> $GITHUB_ENV
 
-      # - run: echo $FILES
-
       - name: Check if files have an serviceowner
         run: |
           for file in $FILES
@@ -40,18 +38,19 @@ jobs:
               UNOWNED_FILES+=($file)
             fi
           done
+          echo $UNOWNED_FILES
           echo "UNOWNED_FILES=$(echo $UNOWNED_FILES)" >> $GITHUB_ENV
 
       - name: Display message
         run: |
           if [ $UNOWNED_FILES ]
           then
-            echo "This PR touch some unowned files\n"
+            echo "This PR touch some unowned files"
             for files in $UNOWNED_FILES
             do
-              echo "   - $file\n"
+              echo "   - $file"
             done
-            echo "To fix it, you need to find a maintainer for them and update CODEOWNERS." >&2
+            echo "To fix it, you need to find a maintainer for them and update CODEOWNERS."
           else
             echo "All good"
           fi
