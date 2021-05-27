@@ -24,9 +24,10 @@ jobs:
         run: |
           API_URL="https://api.github.com/repos/jchuerva/test_app_1/pulls/${{ github.event.pull_request.number }}/files"
           FILES=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $API_URL | jq -r '.[] | .filename')
-          echo $FILES
+          echo files: $FILES
       
       # Check if files are presented in docs/serviceowners_no_matches.txt
       - name: Check service of files
-        run: for file in $FILES; do [echo "ola k ase"] ; done
+        run: |
+          for file in $FILES; do [echo "ola k ase"] ; done
         
