@@ -29,7 +29,7 @@ jobs:
           echo $FILES
           echo "::set-output name=files::$FILES"
 
-      - run: echo "${{steps.get_files.outputs.files[@]}}"
+      - run: echo "${{steps.get_files.outputs.files}}"
 
       - name: Loop in FILES
         run: |
