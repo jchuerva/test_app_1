@@ -27,15 +27,15 @@ jobs:
           API_URL="https://api.github.com/repos/jchuerva/test_app_1/pulls/${{ github.event.pull_request.number }}/files"
           FILES=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $API_URL | jq -r '.[] | .filename')
           echo $FILES
-          TEST=("${FILES[@]}")
-          echo $TEST
-          echo "::set-env name=files::$TEST"
+          echo "FILES=$(echo $FILES)" >> $GITHUB_ENV
+          echo "::set-output name=files::$FILES"
 
-      - run: echo "${{steps.get_files.envs.files}}"
+      - run: echo ${{env.FILES}}
+      - run: echo $FILES
 
       - name: Loop in FILES
         run: |
-          for file in ${{steps.get_files.envs.files}}
+          for file in ${{env.FILES}}
           do
             echo "This is the file: $file"
           done
