@@ -26,7 +26,7 @@ jobs:
         run: |
           API_URL="https://api.github.com/repos/jchuerva/test_app_1/pulls/${{ github.event.pull_request.number }}/files"
           FILES=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $API_URL | jq -r '.[] | .filename')
-          echo "::set-output name=files::$($FILES)"
+          echo '::set-output name=SELECTED_COLOR::green'
 
-      - run: "echo ${{steps.get_files.output.files}}"
+      - run: "echo ${{steps.get_files.output.SELECTED_COLOR}}"
 
