@@ -34,6 +34,7 @@ jobs:
 
       - name: Check if file has owner or not
         shell: bash
-        run: for file in $FILES; do if grep -Fxq $file docs/serviceowners_no_matches.txt; then echo "yes"; fi; done
+        run: |
+        for file in $FILES; do if grep -Fxq $file docs/serviceowners_no_matches.txt; then echo "yes"; fi; done
 
 
