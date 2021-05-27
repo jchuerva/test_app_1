@@ -28,6 +28,5 @@ jobs:
       
       # Check if files are presented in docs/serviceowners_no_matches.txt
       - name: Check service of files
-        run: |
-          for file in $FILES; do [echo "ola k ase"] ; done
+        run: cat docs/serviceowners_no_matches.txt
         
