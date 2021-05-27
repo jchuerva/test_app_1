@@ -36,7 +36,7 @@ jobs:
           for file in $FILES
           do
             echo "This is the file: $file"
-            if [ -z grep -Fxq "$file" docs/serviceowners_no_matches.txt]
+            if ! grep -Fxq "$file" docs/serviceowners_no_matches.txt
             then
               UNOWNED_FILES+=($file)
             fi
