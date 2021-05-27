@@ -28,7 +28,7 @@ jobs:
       
       # Check if files are presented in docs/serviceowners_no_matches.txt
       - name: Check service of files
-        run: |
+        run:
           for file in $FILES
           do
             if grep -Fxq "$file" docs/serviceowners_no_matches.txt
@@ -38,4 +38,6 @@ jobs:
                 echo "File $file does not have a service associated"
             fi 
           done
+          
+      - run: for file in $FILES; do [grep -Fxq "$file" docs/serviceowners_no_matches.txt] ; done
         
