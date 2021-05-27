@@ -33,5 +33,6 @@ jobs:
       #   cat docs/serviceowners_no_matches.txt
 
       - name: Check if file has owner or not
+        shell: bash
         run: |
           for file in $FILES; do echo $file; done
