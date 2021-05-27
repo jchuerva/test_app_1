@@ -36,10 +36,9 @@ jobs:
           for file in $FILES
           do
             echo "This is the file: $file"
-            if grep -Fxq "$file" docs/serviceowners_no_matches.txt
+            if [ -z grep -Fxq "$file" docs/serviceowners_no_matches.txt]
             then
-                echo "ola k ase con service"
-            else
-                echo "ola k ase sin service"
+              UNOWNED_FILES+=($file)
             fi
           done
+          echo $UNOWNED_FILES
