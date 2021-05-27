@@ -28,5 +28,5 @@ jobs:
       
       # Check if files are presented in docs/serviceowners_no_matches.txt
       - name: Check service of files
-        run: cat /docs/serviceowners_no_matches.txt
+        run: cat docs/serviceowners_no_matches.txt
         
