@@ -54,6 +54,7 @@ jobs:
             echo "If you assign them to other team, please let them know it." >&2
             echo "Learn more in:"
             echo "https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners/"
+            exit 1
           else
             echo "Looks good! All files has an owner!"
           fi
