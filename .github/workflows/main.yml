@@ -33,4 +33,5 @@ jobs:
       #   cat docs/serviceowners_no_matches.txt
 
       - name: Check if file has owner or not
-        run: for f in $FILES; do [echo "ola k ase"]; done
+        run: for f in $FILES; do echo "ola k ase"; done
+
