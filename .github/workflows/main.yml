@@ -42,7 +42,7 @@ jobs:
             for file in $UNOWNED_FILES
             do
               echo "   - $file"
-              echo "::error file=$file::${FAILED_MESSAGE}"
+              echo "::warning file=$file::${FAILED_MESSAGE}"
             done
             echo "To fix it, you need to find a maintainer for them and update SERVICEOWNERS."
             echo "If you assign them to other team, please let them know it."
