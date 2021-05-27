@@ -46,12 +46,15 @@ jobs:
           if [ $UNOWNED_FILES ]
           then
             echo "This PR touch some unowned files"
-            for files in $UNOWNED_FILES
+            for file in $UNOWNED_FILES
             do
               echo "   - $file"
             done
-            echo "To fix it, you need to find a maintainer for them and update CODEOWNERS."
+            echo "To fix it, you need to find a maintainer for them and update SERVICEOWNERS."
+            echo "If you assign them to other team, please let them know it." >&2
+            echo "Learn more in:"
+            echo "https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners/"
           else
-            echo "All good"
+            echo "Looks good! All files has an owner!"
           fi
           
