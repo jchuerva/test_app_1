@@ -35,11 +35,8 @@ jobs:
       - name: Check if file has owner or not
         run: |
         for file in $FILES; do
-          if grep -Fxq "$file" docs/serviceowners_no_matches.txt
-          then
-              echo "ola k ase con service"
-          else
-              echo "ola k ase sin service"
+          if [ -z "$FILE_OWNER" ]; then
+            echo "ola ke ase"
           fi
         done
         
