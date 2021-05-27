@@ -34,7 +34,8 @@ jobs:
 
       - name: Check if file has owner or not
         run: |
-        for file in $FILES; do 
-            echo "ola ke ase"
+        for file in $FILES;
+        do 
+          echo "ola ke ase"
         done
         
