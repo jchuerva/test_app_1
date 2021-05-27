@@ -33,7 +33,7 @@ jobs:
       #   cat docs/serviceowners_no_matches.txt
 
       - name: Check if file has owner or not
-        run: |
+        run:
         for file in $FILES; do
           if [ -z "$FILE_OWNER" ]; then
             echo "ola ke ase"
