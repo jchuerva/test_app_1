@@ -28,5 +28,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-      - run: "echo files in pull request: ${{fromJson(steps.get_files_in_pull_request.outputs.data).filename}}"
+      - run: "echo files in pull request: ${{fromJson(steps.get_files_in_pull_request.outputs.data)}}"
         
