@@ -28,14 +28,18 @@ jobs:
           FILES=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $API_URL | jq -r '.[] | .filename')
           echo $FILES
           echo "FILES=$(echo $FILES)" >> $GITHUB_ENV
-          echo "::set-output name=files::$FILES"
 
-      - run: echo ${{env.FILES}}
       - run: echo $FILES
 
       - name: Loop in FILES
         run: |
-          for file in ${{env.FILES}}
+          for file in $FILES
           do
             echo "This is the file: $file"
+            if grep -Fxq "$file" serviceowners_no_matches.txt
+            then
+                echo "ola k ase con service"
+            else
+                echo "ola k ase sin service"
+            fi
           done
