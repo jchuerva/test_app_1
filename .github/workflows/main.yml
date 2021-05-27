@@ -27,7 +27,7 @@ jobs:
           API_URL="https://api.github.com/repos/jchuerva/test_app_1/pulls/${{ github.event.pull_request.number }}/files"
           FILES=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $API_URL | jq -r '.[] | .filename')
           echo $FILES
-          TEST="${FILES[@]}"
+          TEST="${FILES[*]// /|}"
           echo "::set-output name=files::$TEST"
 
       - run: echo "${{steps.get_files.outputs.files}}"
