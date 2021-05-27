@@ -28,5 +28,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-      - run: "echo files in pull request: ${{fromJson(steps.get_files_in_pull_request.outputs.data)}}"
+      - run: "echo files in pull request: ${{fromJson(steps.get_files_in_pull_request.outputs.data)}} | jq -r '.[] | .filename'"
+      
+      - name: Get files in a direct API call
+        run: |
+          URL="https://api.github.com/repos/test_app_1/pulls/${{ github.event.pull_request.number }}/files"`
+          FILES=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $URL | jq -r '.[] | .filename')
+          echo $FILES
         
