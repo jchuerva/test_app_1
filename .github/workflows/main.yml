@@ -1,9 +1,14 @@
 # This is a basic workflow to help you get started with Actions
 
-name: unmaintained-modified-files
+name: Unmaintained files modified
 
 # Controls when the action will run. 
-on: [ pull_request ]
+on: 
+  # Triggers the workflow on push or pull request events but only for the master branch
+  pull_request:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -14,20 +19,14 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Get the branch name
-      # Using the API, find files on the PR
-      # for each file, check if each file is part of the XXX.txt file
-      - name: Extract Pull request number
-        run: echo "running on branch ${{ github.event.pull_request.number }}"
-        
-
-      - name: list files
+      # Get files in pull request
+      - name: GitHub API Request
+        uses: octokit/request-action@v2.1.0
+        id: get_files_in_pull_request
+        with:
+          route: GET /repos/jchuerva/test_app_1/pulls/${{github.event.pull_request.number}}/files
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_USER: github
-        run: |          
-          FILES=$(curl -s -H "Authorization: token ${{github.token}}" \
-                  -H "Accept: application/vnd.github.v3+json" \
-                  https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files")
-          echo $FILES
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
+      - run: "echo files in pull request: ${{fromJson(steps.get_files_in_pull_request.outputs.data).filename}}"
         
