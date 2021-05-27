@@ -28,11 +28,9 @@ jobs:
           echo files: $FILES
       
       # Check if files are presented in docs/serviceowners_no_matches.txt
-      - name: List all no matches files
-        run: |
-        cat docs/serviceowners_no_matches.txt
-        echo "-------"
-        echo "-------"
+      # - name: List all no matches files
+      #   run: |
+      #   cat docs/serviceowners_no_matches.txt
 
       - name: Check if file has owner or not
         run: 
