@@ -23,7 +23,6 @@ jobs:
       - name: Get files in a direct API call
         run: |
           API_URL="https://api.github.com/repos/jchuerva/test_app_1/pulls/${{ github.event.pull_request.number }}/files"
-          JSON=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $API_URL)
-          FILES=$($JSON | jq -r '.[] | .filename')
+          FILES=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $API_URL | jq -r '.[] | .filename')
           echo $FILES
         
