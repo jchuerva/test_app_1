@@ -41,9 +41,10 @@ jobs:
             fi
           done
           echo "UNOWNED_FILES=$(echo $UNOWNED_FILES)" >> $GITHUB_ENV
+          echo "::set-output name=num_unowned_files::${#UNOWNED_FILES[@]}"
 
       - name: Display message
-        if: $UNOWNED_FILES
+        if: ${{ ${#UNOWNED_FILES[@]} != 0 }}
         run: |
           echo "This PR touch some unowned files\n"
           for files in $UNOWNED_FILES
