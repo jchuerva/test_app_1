@@ -33,7 +33,7 @@ jobs:
 
       - name: Loop in FILES
         run: |
-          for file in ${{steps.get_files.outputs.files[@]}}
+          for file in ${{steps.get_files.outputs.files}}[@]
           do
             echo "This is the file: $file"
           done
