@@ -23,7 +23,11 @@ jobs:
       # Get files in pull request
       - name: Get files from the PR
         id: get_files
-        run: echo '::set-output name=SELECTED_COLOR::green'
+        run: |
+          API_URL="https://api.github.com/repos/jchuerva/test_app_1/pulls/${{ github.event.pull_request.number }}/files"
+          FILES=$(curl -s -X GET -H "Authorization: Bearer ${{ secrets.TOKEN }}" $API_URL | jq -r '.[] | .filename')
+          echo $FILES
+          echo "::set-output name=files::$FILES"
 
-      - run: echo "${{steps.get_files.outputs.SELECTED_COLOR}}"
+      - run: echo "${{steps.get_files.outputs.files}}"
 
