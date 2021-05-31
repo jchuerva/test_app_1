@@ -34,9 +34,11 @@ def get_unowned_files(files)
   serviceownes_no_match = File.read("docs/serviceowners_no_matches.txt")
 
   files.each do |file|
-  if serviceownes_no_match.include?(file)
-    unowned_files << file
+    if serviceownes_no_match.include?(file)
+      unowned_files << file
+    end
   end
+
   unowned_files
 end
 
