@@ -34,7 +34,7 @@ files = get_pr_files(client, repo, pr_number)
 
 return unless files
 
-serviceownes_no_match = File.read("serviceowners_no_matches.txt")
+serviceownes_no_match = File.read("docs/serviceowners_no_matches.txt")
 unowned_files = []
 
 files.each do |file|
