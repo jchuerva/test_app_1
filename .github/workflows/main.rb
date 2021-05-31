@@ -5,13 +5,13 @@ github_token = ENV["GITHUB_TOKEN"]
 repo = ENV["REPO"]
 pr_number = ENV["PR_NUMBER"]
 
-FAILED_MESSAGE = "This file currently does not belong to a service. To fix this, please do one of the following:
-
-  * Find a service that makes sense for this file and update SERVICEOWNERS accordingly
-  * Create a new service and assign this file to it
-
+FAILED_MESSAGE <<~MSG
+  This file currently does not belong to a service. To fix this, please do one of the following:
+    * Find a service that makes sense for this file and update SERVICEOWNERS accordingly
+    * Create a new service and assign this file to it
   Learn more about service maintainership here:
-  https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners"
+  https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners
+MSG
 
 def puts_message_in_files(files)
   files.each do |file|
