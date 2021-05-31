@@ -19,7 +19,7 @@ def print_message_in_files(files)
 end
 
 def get_pr_files
-  client = Octokit::Client.new(access_token: TOKEN)
+  client = Octokit::Client.new(access_token: GITHUB_TOKEN)
   response = client.pull_request_files(REPO, PR_NUMBER)
   response.map { |file| file["filename"] }
 end
