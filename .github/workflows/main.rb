@@ -23,7 +23,7 @@ class UnownedFileParser
       https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners
     HEREDOC
 
-    message.gsub("\n", '%0C').freeze
+    message.gsub("\n", '%0A').freeze
   end
 
   FAIL_MESSAGE = build_fail_message
