@@ -19,7 +19,9 @@ jobs:
 
       - name: Get files from the PR
         id: get_files
-        run: .github/workflows/main.sh
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          gem install octokit
+          ruby .github/workflows/main.rb
