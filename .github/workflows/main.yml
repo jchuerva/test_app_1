@@ -15,7 +15,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Ruby/Octokit setup
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: "2.6"
 
       - name: Get files from the PR
         id: get_files
