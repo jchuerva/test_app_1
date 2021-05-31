@@ -7,7 +7,7 @@ pr_number = ENV["PR_NUMBER"]
 
 
 def puts_message_in_files(files)
-  failed_message <<-HEREDOC
+  message <<-HEREDOC
     This file currently does not belong to a service. To fix this, please do one of the following:
     
       * Find a service that makes sense for this file and update SERVICEOWNERS accordingly
