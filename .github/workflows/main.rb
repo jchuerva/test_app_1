@@ -2,8 +2,8 @@ require "octokit"
 require "json"
 
 github_token = ENV["GITHUB_TOKEN"]
-repo = ENV["REPOSITORY"]
-pr_number = ENV["PR_NUMER"]
+repo = ENV["REPO"]
+pr_number = ENV["PR_NUMBER"]
 
 FAILED_MESSAGE = <<HEREDOC
   This file currently does not belong to a service. To fix this, please do one of the following:
