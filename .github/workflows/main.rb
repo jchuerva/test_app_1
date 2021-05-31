@@ -29,22 +29,26 @@ def get_pr_files(client, repo, pr_number)
   response.map { |file| file["filename"] }
 end
 
+def get_unowned_files(files)
+  unowned_files = []
+  serviceownes_no_match = File.read("docs/serviceowners_no_matches.txt")
+
+  files.each do |file|
+  if serviceownes_no_match.include?(file)
+    unowned_files << file
+  end
+  unowned_files
+end
+
 client = octokit_client(github_token)
 files = get_pr_files(client, repo, pr_number)
 
 return unless files
 
-serviceownes_no_match = File.read("docs/serviceowners_no_matches.txt")
-unowned_files = []
+unowned_files = get_unowned_files(files)
 
-files.each do |file|
-  if serviceownes_no_match.include?(file)
-    unowned_files << file
-  end
-
-  if unowned_files
-    print_message_in_files(unowned_files)
-  else
-    print "Looks good! All files modified have an owner!"
-  end
+if unowned_files
+  print_message_in_files(unowned_files)
+else
+  print "Looks good! All files modified have an owner!"
 end
