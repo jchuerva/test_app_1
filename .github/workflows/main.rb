@@ -13,9 +13,9 @@ FAILED_MESSAGE = "This file currently does not belong to a service. To fix this,
   Learn more about service maintainership here:\n\
   https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners\n"
 
-def print_message_in_files(files)
+def puts_message_in_files(files)
   files.each do |file|
-    print "::warning file=#{file}::#{FAILED_MESSAGE}"
+    puts "::warning file=#{file}::#{FAILED_MESSAGE}"
   end
 end
 
@@ -49,8 +49,8 @@ return unless files
 unowned_files = get_unowned_files(files)
 
 if unowned_files
-  print_message_in_files(unowned_files)
+  puts_message_in_files(unowned_files)
   fail
 else
-  print "Looks good! All files modified have an owner!"
+  puts "Looks good! All files modified have an owner!"
 end
