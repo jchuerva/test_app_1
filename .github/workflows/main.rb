@@ -6,8 +6,6 @@ repo = ENV['REPO']
 pr_number = ENV['PR_NUMBER']
 
 class UnownedFileParser
-  FAIL_MESSAGE = build_fail_message
-
   def initialize(repo, pr_number, github_token)
     @repo = repo
     @pr_number = pr_number
@@ -28,11 +26,11 @@ class UnownedFileParser
     message.gsub("\n", '%0C').freeze
   end
 
-  def puts_message_in_files(files)
-  failed_message =
+  FAIL_MESSAGE = build_fail_message
 
+  def puts_message_in_files(files)
     files.each do |file|
-      puts "::warning file=#{file}::#{failed_message}"
+      puts "::warning file=#{file}::#{FAIL_MESSAGE}"
     end
   end
 
