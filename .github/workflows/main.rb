@@ -2,7 +2,7 @@ require "octokit"
 require "json"
 
 github_token = ENV["GITHUB_TOKEN"]
-repo = ENV["REPO"]
+repo = ENV["REPOSITORY"]
 pr_number = ENV["PR_NUMER"]
 
 FAILED_MESSAGE = <<HEREDOC
