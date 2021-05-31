@@ -1,7 +1,9 @@
 require "octokit"
 require "json"
 
-REPO = "jchuerva/test_app_1'"
+github_token = ENV["GITHUB_TOKEN"]
+repo = ENV["REPO"]
+pr_number = ENV["PR_NUMER"]
 
 FAILED_MESSAGE = <<HEREDOC
   This file currently does not belong to a service. To fix this, please do one of the following:
@@ -18,16 +20,19 @@ def print_message_in_files(files)
   end
 end
 
-def get_pr_files
-  client = Octokit::Client.new(access_token: GITHUB_TOKEN)
-  response = client.pull_request_files(REPO, PR_NUMBER)
+def octokit_client(token)
+  Octokit::Client.new(access_token: token)
+end
+
+def get_pr_files(client, repo, pr_number)
+  response = client.pull_request_files(repo, pr_number)
   response.map { |file| file["filename"] }
 end
 
-files = get_pr_files
+client = octokit_client(github_token)
+files = get_pr_files(client, repo, pr_number)
 
 return unless files
-binding.pry
 
 serviceownes_no_match = File.read("serviceowners_no_matches.txt")
 unowned_files = []
