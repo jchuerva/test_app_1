@@ -51,6 +51,7 @@ unowned_files = get_unowned_files(files)
 
 if unowned_files
   print_message_in_files(unowned_files)
+  fail
 else
   print "Looks good! All files modified have an owner!"
 end
