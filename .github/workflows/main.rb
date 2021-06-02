@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require "octokit"
 require "json"
+require "erb"
 
 github_token = ENV["GITHUB_TOKEN"]
 repo = ENV["REPO"]
