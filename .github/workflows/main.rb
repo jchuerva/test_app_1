@@ -45,8 +45,8 @@ class UnownedFileParser
   end
 
   def self.build_fail_message_alt
-    %(Alt
-      This file currently does not belong to a service. To fix this, please do one of the following:
+    %(Alt\n
+      This file currently does not belong to a service. To fix this, please do one of the following:\n
 
       * Find a service that makes sense for this file and update SERVICEOWNERS accordingly
       * Create a new service and assign this file to it
