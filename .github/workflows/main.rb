@@ -59,7 +59,7 @@ class UnownedFileParser
 
   FAIL_MESSAGE = build_fail_message
   FAIL_MESSAGE_ORI = build_fail_message_ori
-  FAIL_MESSAGE_ALTERNATIVE = build_fail_message_alt
+  FAIL_MESSAGE_ALTERNATIVE = build_fail_message_alt.freeze
 
   def puts_message_in_files(files)
     puts "This PR touches some unowned files"
