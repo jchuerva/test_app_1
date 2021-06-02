@@ -1,9 +1,11 @@
-require 'octokit'
-require 'json'
+# frozen_string_literal: true
+require "octokit"
+require "json"
 
-github_token = ENV['GITHUB_TOKEN']
-repo = ENV['REPO']
-pr_number = ENV['PR_NUMBER']
+github_token = ENV["GITHUB_TOKEN"]
+repo = ENV["REPO"]
+pr_number = ENV["PR_NUMBER"]
+
 
 class UnownedFileParser
   def initialize(repo, pr_number, github_token)
@@ -15,20 +17,21 @@ class UnownedFileParser
   def self.build_fail_message
     message = <<~HEREDOC
       This file currently does not belong to a service. To fix this, please do one of the following:
-      
+
         * Find a service that makes sense for this file and update SERVICEOWNERS accordingly
         * Create a new service and assign this file to it
-      
+
       Learn more about service maintainership here:
-      https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners
+       <https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners/service-oriented-maintainership/>
     HEREDOC
 
-    message.gsub("\n", '%0A').freeze
+    ERB::Util.url_encode(message).freeze
   end
 
   FAIL_MESSAGE = build_fail_message
 
   def puts_message_in_files(files)
+    puts "This PR touches some unowned files"
     files.each do |file|
       puts "::warning file=#{file}::#{FAIL_MESSAGE}"
     end
@@ -40,12 +43,12 @@ class UnownedFileParser
 
   def get_pr_files
     response = octokit_client.pull_request_files(@repo, @pr_number)
-    response.map { |file| file['filename'] }
+    response.map { |file| file["filename"] }
   end
 
   def get_unowned_files(files)
     unowned_files = []
-    serviceownes_no_match = File.read('docs/serviceowners_no_matches.txt')
+    serviceownes_no_match = File.read("docs/serviceowners_no_matches.txt").lines.map(&:chomp)
 
     files.each do |file|
       unowned_files << file if serviceownes_no_match.include?(file)
@@ -59,11 +62,11 @@ class UnownedFileParser
     return unless files
     unowned_files = get_unowned_files(files)
 
-    if unowned_files
+    if unowned_files.any?
       puts_message_in_files(unowned_files)
       raise "Unowned files found"
     else
-      puts 'Looks good! All files modified have an owner!'
+      puts "Looks good! All files modified have an owner!"
     end
   end
 end
