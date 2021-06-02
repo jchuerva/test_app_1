@@ -20,7 +20,7 @@ jobs:
       - name: Ruby/Octokit setup
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: "2.6"
+          ruby-version: "3.0"
 
       - name: Get files from the PR
         id: get_files
