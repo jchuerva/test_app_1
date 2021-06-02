@@ -26,15 +26,49 @@ class UnownedFileParser
        <https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners/service-oriented-maintainership/>
     HEREDOC
 
-    ERB::Util.html_escape(message).freeze
+    ERB::Util.url_encode(message).freeze
+  end
+
+  def self.build_fail_message_ori
+    message = <<~HEREDOC
+      Original
+      This file currently does not belong to a service. To fix this, please do one of the following:
+
+        * Find a service that makes sense for this file and update SERVICEOWNERS accordingly
+        * Create a new service and assign this file to it
+
+      Learn more about service maintainership here:
+       <https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners/service-oriented-maintainership/>
+    HEREDOC
+
+    message.gsub("\n", "%0A").freeze
+  end
+
+  def self.build_fail_message_alt
+    message = "
+      Alt \
+      This file currently does not belong to a service. To fix this, please do one of the following: \
+
+        * Find a service that makes sense for this file and update SERVICEOWNERS accordingly \
+        * Create a new service and assign this file to it \
+
+      Learn more about service maintainership here: \
+       <https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners/service-oriented-maintainership/> \
+    "
+
+    ERB::Util.url_encode(message).freeze
   end
 
   FAIL_MESSAGE = build_fail_message
+  FAIL_MESSAGE_ORI = build_fail_message_ori
+  FAIL_MESSAGE_ALTERNATIVE = build_fail_message_alt
 
   def puts_message_in_files(files)
     puts "This PR touches some unowned files"
     files.each do |file|
       puts "::warning file=#{file}::#{FAIL_MESSAGE}"
+      puts "::warning file=#{file}::#{FAIL_MESSAGE_ORI}"
+      puts "::warning file=#{file}::#{FAIL_MESSAGE_ALTERNATIVE}"
     end
   end
 
