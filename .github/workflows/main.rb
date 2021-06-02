@@ -59,6 +59,7 @@ class UnownedFileParser
     ERB::Util.url_encode(message).freeze
   end
 
+  
   FAIL_MESSAGE = build_fail_message
   FAIL_MESSAGE_ORI = build_fail_message_ori
   FAIL_MESSAGE_ALTERNATIVE = build_fail_message_alt
