@@ -26,7 +26,7 @@ class UnownedFileParser
        <https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners/service-oriented-maintainership/>
     HEREDOC
 
-    ERB::Util.url_encode(message).freeze
+    ERB::Util.html_escape(message).freeze
   end
 
   FAIL_MESSAGE = build_fail_message
