@@ -45,21 +45,18 @@ class UnownedFileParser
   end
 
   def self.build_fail_message_alt
-    message = "
-      Alt \
-      This file currently does not belong to a service. To fix this, please do one of the following: \
-
-        * Find a service that makes sense for this file and update SERVICEOWNERS accordingly \
-        * Create a new service and assign this file to it \
-
-      Learn more about service maintainership here: \
-       <https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners/service-oriented-maintainership/> \
     "
-
-    ERB::Util.url_encode(message).freeze
+      Alt \n\
+      This file currently does not belong to a service. To fix this, please do one of the following: \n\
+      \n
+      \t* Find a service that makes sense for this file and update SERVICEOWNERS accordingly \n\
+      \t* Create a new service and assign this file to it \n\
+      \n
+      \nLearn more about service maintainership here: \
+      \n<https://thehub.github.com/engineering/development-and-ops/dotcom/serviceowners/service-oriented-maintainership/> \
+    "
   end
 
-  
   FAIL_MESSAGE = build_fail_message
   FAIL_MESSAGE_ORI = build_fail_message_ori
   FAIL_MESSAGE_ALTERNATIVE = build_fail_message_alt
