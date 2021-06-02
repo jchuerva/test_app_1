@@ -16,7 +16,7 @@ class UnownedFileParser
   end
 
   def self.build_fail_message
-    message = <<~HEREDOC
+    message = <<-HEREDOC
       This file currently does not belong to a service. To fix this, please do one of the following:
 
         * Find a service that makes sense for this file and update SERVICEOWNERS accordingly
