@@ -1,5 +1,5 @@
 ---
-abilities: github/roles_and_permissions
+abilities: github/roles_and_permissions_updated
 abilities_permissions_routing: github/roles_and_permissions
 abuse_reports: github/community_and_safety
 actions_allowed_packages: github/package_registry
