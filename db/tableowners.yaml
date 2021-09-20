@@ -1,0 +1,22 @@
+---
+abilities: github/roles_and_permissions
+abilities_permissions_routing: github/roles_and_permissions
+abuse_reports: github/community_and_safety
+actions_allowed_packages: github/package_registry
+actions_allowlists: github/actions
+actions_usage_aggregations: github/metered_billing_data
+actions_usage_line_items: github/metered_billing_data
+acv_contributors: github/profiles
+advisory_credits: github/repo_advisories
+allowed_action_patterns: github/actions
+application_callback_urls: github/apps
+applied_discussion_labels: github/discussions
+ar_internal_metadata:
+archived_assignments:
+archived_commit_comments:
+archived_deleted_issues:
+archived_deployment_statuses: github/deployments_api
+archived_deployments: github/deployments_api
+archived_discussion_categories: github/discussions
+archived_discussion_comments: github/discussions
+archived_discussion_spotlights: github/discussions
