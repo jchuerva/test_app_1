@@ -8,6 +8,10 @@ github_token = ENV['GITHUB_TOKEN']
 repo = ENV['REPO']
 pr_number = ENV['PR_NUMBER']
 
+# github_token = "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"
+# repo = "github/github"
+# pr_number = 181535
+
 class UnownedFileParser
   def initialize(repo, pr_number, github_token)
     @repo = repo

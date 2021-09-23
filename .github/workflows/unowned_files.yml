@@ -30,4 +30,4 @@ jobs:
           REPO: jchuerva/test_app_1
         run: |
           gem install octokit
-          ruby .github/workflows/main.rb
+          ruby .github/workflows/unowned_files.rb
