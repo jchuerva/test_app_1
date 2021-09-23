@@ -1,0 +1,33 @@
+# This is a workflow to check the serviceowners of the files modified in a PR
+# It failed when the PR contains some files without serviceowners
+name: Add tableowners in the pmp-id-range issues
+
+on: 
+  # Triggers the workflow on pull request events
+  issues:
+    types: [opened]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Ruby/Octokit setup
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: "3.0"
+
+      - name: Get files from the PR
+        id: get_files
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          REPO: jchuerva/test_app_1
+        run: |
+          gem install octokit
+          ruby .github/workflows/pmp-id-range.rb
