@@ -3,9 +3,9 @@
 name: Add tableowners in the pmp-id-range issues
 
 on: 
-  # Triggers the workflow on pull request events
+  # Triggers the workflow on issues events
   issues:
-    types: [opened]
+    types: [opened, reopened]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -26,8 +26,8 @@ jobs:
         id: get_files
         env:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-          REPO: jchuerva/test_app_1
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
         run: |
           gem install octokit
           ruby .github/workflows/pmp-id-range.rb
