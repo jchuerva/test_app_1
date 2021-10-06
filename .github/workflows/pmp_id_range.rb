@@ -19,6 +19,7 @@ class PmpIdRangeIssue
   end
 
   def run
+    add_label_to_issue('alert:pmp-id-range')
     db_tables = extract_exhausted_tables_in_description
     return unless db_tables
 
@@ -31,6 +32,10 @@ class PmpIdRangeIssue
   end
 
   private
+
+  def add_label_to_issue(label_name)
+    octokit_client.add_labels_to_an_issue(@repo, @issue_number, [label_name])
+  end
 
   def octokit_client
     Octokit::Client.new(access_token: @github_token)
