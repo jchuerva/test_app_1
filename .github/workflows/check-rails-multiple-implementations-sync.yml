@@ -1,6 +1,6 @@
-# This is a workflow to ensure the bug fixing in both rails and react version of a page
+# This is a workflow to ensure the bug fixing when there are multiples implementations of it (View Template, View Component and React version)
 # Check https://github.com/github/github/issues/223539
-name: Check the rails files with multiples implementations (View Component or React version)
+name: Check the rails files with multiples implementations
 
 on: [ pull_request, workflow_dispatch ]
 

@@ -33,7 +33,7 @@ class MultImplemntationFileParser
 
         If you need some help, please, contact us in the #repos-ux-refresh channel on Slack.
 
-        Learn more about the Improve Repos Navigation and convert to React here:
+        Learn more about the Improve Repos Navigation and convert to React [here](https://github.com/github/repos/issues/1202/):
           <https://github.com/github/repos/issues/1202/>
       HEREDOC
 
