@@ -60,7 +60,7 @@ class ReactReviewFileParser
     files_need_react_review = []
 
     files.each do |file|
-      files_need_react_review << file if files_with_react_version.include?(file)
+      files_need_react_review << file if @files_with_react_version.include?(file)
     end
 
     files_need_react_review
