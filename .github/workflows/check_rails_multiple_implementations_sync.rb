@@ -54,7 +54,7 @@ class MultImplemntationFileParser
     message = base_message_text(file)
 
     if slack_channel
-      message += "\nIf you need some help, please, contact us in the ##{slack_channel} channel on Slack.\n"
+      message += "If you need some help, please, contact us in the ##{slack_channel} channel on Slack.\n\n"
     end
 
     message += additional_message_text if additional_message_text
