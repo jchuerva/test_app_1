@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'pry'
+# require 'pry'
 require 'octokit'
 
 github_token = ENV['GITHUB_TOKEN']
