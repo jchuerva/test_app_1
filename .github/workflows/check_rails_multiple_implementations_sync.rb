@@ -59,7 +59,8 @@ class MultImplemntationFileParser
     file_data = @files_with_mult_implementations[file]
     additional_message_text = file_data[:additional_message_text]
 
-    message = base_text_message(file) + additional_message_text
+    message = base_text_message(file)
+    message += additional_message_text if additional_message_text
 
     message.gsub("\n", '%0A')
   end
