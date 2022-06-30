@@ -114,7 +114,7 @@ end
 
 def check_paths_format
   PATHS_TO_MONITOR.each do |section|
-    raise 'PATHS_TO_MONITOR has an invalid format' if section.key?(:files) || section.key?(:slack_channel)
+    raise 'PATHS_TO_MONITOR has an invalid format' unless section.key?(:files) || section.key?(:slack_channel)
   end
 end
 
