@@ -17,8 +17,7 @@ PATHS_TO_MONITOR = [
   {
     name: 'test',
     files: ['docs/*'],
-    slack_channel: 'hola',
-    additional_message_text: 'Learn more about the Improve Repos Navigation and convert to React here: <https://github.com/github/repos/issues/1202/>'
+    slack_channel: 'hola'
   }
 ]
 
@@ -71,7 +70,7 @@ class MultImplemntationFileParser
     <<~HEREDOC
       The file (`#{file}`) has a new implementation (View Component or React) that may need to change to ensure both versions are in sync.\n
 
-      "If you need some help, please, contact us in the ##{slack_channel} channel on Slack.\n"
+      If you need some help, please, contact us in the ##{slack_channel} channel on Slack.\n
     HEREDOC
   end
 
