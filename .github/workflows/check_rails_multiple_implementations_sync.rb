@@ -7,20 +7,6 @@ github_token = ENV['GITHUB_TOKEN']
 repo = ENV['REPO']
 pr_number = ENV['PR_NUMBER']
 
-# paths_with_multiple_implementations = {
-#   "repos-ux-refresh": ['app/views/blob/*', 'app/views/refs/*', 'docs/*']
-# }
-#   'app/views/blob/*',
-#   'app/views/refs/*',
-#   'app/views/commit/_spoofed_commit_warning.html.erb',
-#   'app/views/code_navigation/_popover.html.erb',
-#   'app/views/diff/_split_directional_hunk_header.html.erb',
-#   'app/views/diff/_diff_context.html.erb',
-#   'app/views/files/*',
-#   'app/views/tree/*',
-#   'docs/*'
-# ]
-
 paths_with_multiple_implementations = [
   {
     name: 'repos_ux_refresh',
@@ -37,6 +23,23 @@ class MultImplemntationFileParser
     @github_token = github_token
     @files_with_mult_implementations = build_file_list(file_paths)
   end
+
+  def run
+    pr_files = get_pr_files
+    return unless pr_files
+
+    files_need_review = get_files_need_review(pr_files)
+
+    if files_need_review.any?
+      puts 'This PR modifies some files that need review its other implementation (View Component or React version)'
+      puts_message_in_files(files_need_review)
+      raise 'React review found'
+    else
+      puts "Looks good! It looks this PR doesn't modify any view with multiple implementations"
+    end
+  end
+
+  private
 
   def puts_message_in_files(files)
     files.each do |file|
@@ -81,7 +84,7 @@ class MultImplemntationFileParser
     full_file_list = {}
     sections.each do |section|
       paths = section[:files]
-      break unless paths
+      exit unless paths
 
       slack_channel = section[:slack_channel]
       additional_message_text = section[:additional_message_text]
@@ -98,21 +101,6 @@ class MultImplemntationFileParser
 
   def get_files_need_review(files)
     files.filter_map { |file| file if @files_with_mult_implementations[file] }
-  end
-
-  def run
-    pr_files = get_pr_files
-    return unless pr_files
-
-    files_need_review = get_files_need_review(pr_files)
-
-    if files_need_review.any?
-      puts 'This PR modifies some files that need review its other implementation (View Component or React version)'
-      puts_message_in_files(files_need_review)
-      raise 'React review found'
-    else
-      puts "Looks good! It looks this PR doesn't modify any view with multiple implementations"
-    end
   end
 end
 
