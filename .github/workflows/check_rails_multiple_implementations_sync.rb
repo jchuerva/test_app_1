@@ -45,27 +45,27 @@ class MultImplemntationFileParser
     files.each do |file|
       puts '-----'
       puts "unowned modified file: #{file}"
-      puts "::warning file=#{file}::#{build_message(file)}"
+      puts "::warning file=#{file}::#{file_message(file)}"
       puts '-----'
     end
   end
 
-  def build_message(file)
+  def file_message(file)
     slack_channel = @files_with_mult_implementations[file][:slack_channel]
     additional_message_text = @files_with_mult_implementations[file][:additional_message_text]
 
-    message = base_message_text(file)
+    message = base_text_message(file)
 
-    if slack_channel
-      message += "If you need some help, please, contact us in the ##{slack_channel} channel on Slack.\n\n"
-    end
+    message += if slack_channel
+                 "If you need some help, please, contact us in the ##{slack_channel} channel on Slack.\n\n"
+               end
 
-    message += additional_message_text if additional_message_text
+    message += additional_message_text
 
     message.gsub("\n", '%0A')
   end
 
-  def base_message_text(file)
+  def base_text_message(file)
     <<~HEREDOC
       The file (`#{file}`) has another implementation (View Component or React version) that needs review. Please, ensure both version are in sync.\n
     HEREDOC
