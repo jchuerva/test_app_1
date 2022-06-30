@@ -85,8 +85,6 @@ class MultImplemntationFileParser
   end
 
   def build_file_list(sections)
-    ensure_path_format
-
     full_file_list = {}
     sections.each do |section|
       paths = section[:files]
