@@ -11,7 +11,7 @@ PATHS_TO_MONITOR = [
   {
     name: 'repos_ux_refresh',
     files: ['app/views/blob/*', 'app/views/refs/*', 'docs/*'],
-    # slack_channel: 'repos-ux-refresh',
+    slack_channel: 'repos-ux-refresh',
     additional_message_text: 'Learn more about the Improve Repos Navigation and convert to React here: <https://github.com/github/repos/issues/1202/>'
   }
 ]
