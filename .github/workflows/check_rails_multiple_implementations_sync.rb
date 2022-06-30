@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-# require 'pry'
+require 'pry'
 require 'octokit'
 
 github_token = ENV['GITHUB_TOKEN']
 repo = ENV['REPO']
 pr_number = ENV['PR_NUMBER']
 
-paths_with_multiple_implementations = [
+PATHS_TO_MONITOR = [
   {
     name: 'repos_ux_refresh',
     files: ['app/views/blob/*', 'app/views/refs/*', 'docs/*'],
-    slack_channel: 'repos-ux-refresh',
+    # slack_channel: 'repos-ux-refresh',
     additional_message_text: 'Learn more about the Improve Repos Navigation and convert to React here: <https://github.com/github/repos/issues/1202/>'
   }
 ]
@@ -51,23 +51,22 @@ class MultImplemntationFileParser
   end
 
   def file_message(file)
-    slack_channel = @files_with_mult_implementations[file][:slack_channel]
-    additional_message_text = @files_with_mult_implementations[file][:additional_message_text]
+    file_data = @files_with_mult_implementations[file]
+    additional_message_text = file_data[:additional_message_text]
 
     message = base_text_message(file)
-
-    message += if slack_channel
-                 "If you need some help, please, contact us in the ##{slack_channel} channel on Slack.\n\n"
-               end
-
     message += additional_message_text
 
     message.gsub("\n", '%0A')
   end
 
   def base_text_message(file)
+    slack_channel = @files_with_mult_implementations[file][:slack_channel]
+
     <<~HEREDOC
-      The file (`#{file}`) has another implementation (View Component or React version) that needs review. Please, ensure both version are in sync.\n
+      The file (`#{file}`) has a new implementation (View Component or React) that may need to change to ensure both versions are in sync.\n
+
+      "If you need some help, please, contact us in the ##{slack_channel} channel on Slack.\n"
     HEREDOC
   end
 
@@ -81,12 +80,16 @@ class MultImplemntationFileParser
   end
 
   def build_file_list(sections)
+    ensure_path_format
+
     full_file_list = {}
     sections.each do |section|
       paths = section[:files]
       exit unless paths
 
       slack_channel = section[:slack_channel]
+      exit unless slack_channel
+
       additional_message_text = section[:additional_message_text]
 
       paths.each do |path|
@@ -104,5 +107,13 @@ class MultImplemntationFileParser
   end
 end
 
-parser = MultImplemntationFileParser.new(repo, pr_number, github_token, paths_with_multiple_implementations)
+def input_valid_format?
+  PATHS_TO_MONITOR.each do |section|
+    raise 'Invalid format' if section.key?(:files) || section.key?(:slack_channel)
+  end
+end
+
+raise 'Invalid format' unless input_valid_format?
+
+parser = MultImplemntationFileParser.new(repo, pr_number, github_token, PATHS_TO_MONITOR)
 parser.run
