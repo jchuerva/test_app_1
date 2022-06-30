@@ -59,8 +59,6 @@ class MultImplemntationFileParser
 
     message += additional_message_text if additional_message_text
 
-    message += "ola k ase\n"
-
     message.gsub("\n", '%0A')
   end
 
