@@ -13,6 +13,12 @@ PATHS_TO_MONITOR = [
     files: ['app/views/blob/*', 'app/views/refs/*', 'docs/*'],
     slack_channel: 'repos-ux-refresh',
     additional_message_text: 'Learn more about the Improve Repos Navigation and convert to React here: <https://github.com/github/repos/issues/1202/>'
+  },
+  {
+    name: 'test',
+    files: ['docs/*'],
+    slack_channel: 'hola',
+    additional_message_text: 'Learn more about the Improve Repos Navigation and convert to React here: <https://github.com/github/repos/issues/1202/>'
   }
 ]
 
@@ -54,8 +60,7 @@ class MultImplemntationFileParser
     file_data = @files_with_mult_implementations[file]
     additional_message_text = file_data[:additional_message_text]
 
-    message = base_text_message(file)
-    message += additional_message_text
+    message = base_text_message(file) + additional_message_text
 
     message.gsub("\n", '%0A')
   end
@@ -107,13 +112,13 @@ class MultImplemntationFileParser
   end
 end
 
-def input_valid_format?
+def check_paths_format
   PATHS_TO_MONITOR.each do |section|
     raise 'PATHS_TO_MONITOR has an invalid format' if section.key?(:files) || section.key?(:slack_channel)
   end
 end
 
-raise 'Invalid format' unless input_valid_format?
+check_paths_format
 
 parser = MultImplemntationFileParser.new(repo, pr_number, github_token, PATHS_TO_MONITOR)
 parser.run
