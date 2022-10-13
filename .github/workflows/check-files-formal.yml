@@ -16,7 +16,7 @@ jobs:
         with:
           ruby-version: 3.0.x
 
-      - name: Check for edits views with multiple implementations
+      - name: Check file extension
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -25,5 +25,5 @@ jobs:
           gem install octokit
           echo "jest_compatible_file=$(ruby .github/workflows/check_files_format.rb)" >> $GITHUB_ENV
       - name: Check
-        if: env.jest_compatible_file == true
+        if: env.jest_compatible_file != true
         run: echo "ola k ase"
