@@ -1,0 +1,29 @@
+# This is a workflow to ensure the bug fixing when there are multiples implementations of it (View Template, View Component and React version)
+# Check https://github.com/github/github/issues/223539
+name: Check the rails files with multiples implementations
+
+on: [ pull_request, workflow_dispatch ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 3.0.x
+
+      - name: Check for edits views with multiple implementations
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: jchuerva/test_app_1
+        run: |
+          gem install octokit
+          echo "jest_compatible_file=$(ruby .github/workflows/check_files-format.rb)" >> $GITHUB_ENV
+      - name: Check
+        if: env.jest_compatible_file != 'true'
+        run: echo "ola k ase"
