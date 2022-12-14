@@ -1,0 +1,26 @@
+# This is a workflow to ensure the bug fixing in both rails and react version of a page
+# Check https://github.com/github/github/issues/223539
+name: Check the rails-react pages consistency
+
+on: [ pull_request, workflow_dispatch ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 3.0.x
+
+      # - name: Check for edits views with a react version
+      #   env:
+      #     PR_NUMBER: ${{ github.event.pull_request.number }}
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     REPO: jchuerva/test_app_1
+      #   run: |
+      #     gem install octokit
+      #     ruby .github/workflows/check_rails_react_consistency.rb
