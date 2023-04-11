@@ -3,4 +3,4 @@ npm-debug.log
 *.pem
 .env
 package-lock.json
-docs/*.jpg binary
+docs/IMG_4219-3893776489.jpg binary
